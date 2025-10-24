@@ -24,19 +24,24 @@
 
 ## 📂 프로젝트 구조
 
+```bash
 iris_knn_flask/
-├── app.py                # Flask 메인 애플리케이션
-├── train_model.py        # 모델 학습 및 저장 스크립트
+├── app.py                  # Flask 메인 애플리케이션
+├── train_model.py          # 모델 학습 및 저장 스크립트
+│
 ├── model/
-│   └── knn_model.pkl     # 학습된 KNN 모델 파일
+│   └── knn_model.pkl       # 학습된 KNN 모델 파일
+│
 ├── templates/
-│   └── index.html        # 메인 HTML 템플릿
+│   └── index.html          # 메인 HTML 템플릿 (입력폼 + 결과 표시)
+│
 └── static/
     ├── css/
-    │   └── style.css     # CSS 스타일시트
-    └── images/
-        ├── iris_setosa.png    
-        ├── Iris_versicolor.png
+    │   └── style.css       # CSS 스타일시트
+    │
+    └── images/             # 붓꽃 품종 이미지 폴더
+        ├── iris_setosa.png
+        ├── iris_versicolor.png
         └── iris_virginica.png
 
 ---
