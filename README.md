@@ -6,6 +6,13 @@
 
 ---
 
+---
+## 결과 시연 영상
+
+https://github.com/user-attachments/assets/e6f3fac0-f538-4236-93a5-3eaf2e6247db
+
+---
+
 ## ✨ 주요 기능
 
 - **붓꽃 품종 예측**  
