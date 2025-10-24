@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Iris KNN 분류기</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🌸 붓꽃 품종 예측기 (KNN)</h1>
+
+    <form method="post" id="iris-form">
+        <div class="input-group">
+            <label>Sepal Length (cm)
+                <span class="tooltip">?
+                    <span class="tooltip-text">
+                        평균값<br>
+                        • setosa ≈ 5.0<br>
+                        • versicolor ≈ 5.9<br>
+                        • virginica ≈ 6.6
+                    </span>
+                </span>
+            </label>
+            <input id="sepal_length" type="number" step="0.01" name="sepal_length" required>
+        </div>
+
+        <div class="input-group">
+            <label>Sepal Width (cm)
+                <span class="tooltip">?
+                    <span class="tooltip-text">
+                        평균값<br>
+                        • setosa ≈ 3.4<br>
+                        • versicolor ≈ 2.8<br>
+                        • virginica ≈ 2.9
+                    </span>
+                </span>
+            </label>
+            <input id="sepal_width" type="number" step="0.01" name="sepal_width" required>
+        </div>
+
+        <div class="input-group">
+            <label>Petal Length (cm)
+                <span class="tooltip">?
+                    <span class="tooltip-text">
+                        평균값<br>
+                        • setosa ≈ 1.5<br>
+                        • versicolor ≈ 4.3<br>
+                        • virginica ≈ 5.6
+                    </span>
+                </span>
+            </label>
+            <input id="petal_length" type="number" step="0.01" name="petal_length" required>
+        </div>
+
+        <div class="input-group">
+            <label>Petal Width (cm)
+                <span class="tooltip">?
+                    <span class="tooltip-text">
+                        평균값<br>
+                        • setosa ≈ 0.25<br>
+                        • versicolor ≈ 1.3<br>
+                        • virginica ≈ 2.0
+                    </span>
+                </span>
+            </label>
+            <input id="petal_width" type="number" step="0.01" name="petal_width" required>
+        </div>
+
+        <!-- ✅ 대표값 자동입력 버튼 (작고 입력칸 아래 배치) -->
+        <div class="preset-group">
+            <button type="button" class="btn preset" data-species="setosa">setosa</button>
+            <button type="button" class="btn preset" data-species="versicolor">versicolor</button>
+            <button type="button" class="btn preset" data-species="virginica">virginica</button>
+        </div>
+
+        <button type="submit">🌼 예측하기</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            예측 결과: <span class="pill">{{ prediction }}</span>
+        </div>
+
+        {% if image_url %}
+            <div class="result-img">
+                <img src="{{ image_url }}" alt="Iris {{ prediction }} image">
+            </div>
+            <div class="caption">예측된 품종 이미지 (샘플)</div>
+        {% endif %}
+    {% endif %}
+
+    {% if err_msg %}
+        <div class="error">{{ err_msg }}</div>
+    {% endif %}
+
+    <div class="footer">Made with 💜 Flask & KNN | AI Software Dept.</div>
+</div>
+
+<script>
+    const PRESETS = {
+        setosa:      { sepal_length: 5.00, sepal_width: 3.43, petal_length: 1.46, petal_width: 0.25 },
+        versicolor:  { sepal_length: 5.94, sepal_width: 2.77, petal_length: 4.26, petal_width: 1.33 },
+        virginica:   { sepal_length: 6.59, sepal_width: 2.97, petal_length: 5.55, petal_width: 2.03 }
+    };
+
+    function fillForm(values) {
+        document.getElementById('sepal_length').value = values.sepal_length;
+        document.getElementById('sepal_width').value  = values.sepal_width;
+        document.getElementById('petal_length').value = values.petal_length;
+        document.getElementById('petal_width').value  = values.petal_width;
+    }
+
+    document.querySelectorAll('.preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const species = btn.getAttribute('data-species');
+            const values = PRESETS[species];
+            if (values) fillForm(values);
+        });
+    });
+</script>
+</body>
+</html>
